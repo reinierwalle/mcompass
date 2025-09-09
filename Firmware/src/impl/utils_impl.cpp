@@ -1,5 +1,7 @@
 #include <Arduino.h>
+#if defined(CONFIG_IDF_TARGET_ESP32S3) || defined(CONFIG_IDF_TARGET_ESP32C3)
 #include <soc/usb_serial_jtag_reg.h>
+#endif
 
 #include <iomanip>
 #include <sstream>
@@ -46,10 +48,15 @@ int utils::fromHexString(const std::string &hexColor) {
 }
 
 bool utils::isPluggedUSB(void) {
-  uint32_t *aa = (uint32_t *)USB_SERIAL_JTAG_FRAM_NUM_REG;
-  uint32_t first = *aa;
-  delay(10);
-  return (*aa - first) != 0;
+#if defined(CONFIG_IDF_TARGET_ESP32S3) || defined(CONFIG_IDF_TARGET_ESP32C3)
+    uint32_t *aa = (uint32_t *)USB_SERIAL_JTAG_FRAM_NUM_REG;
+    uint32_t first = *aa;
+    delay(10);
+    return (*aa - first) != 0;
+#else
+    // Classic ESP32 (WROOM-32) has no USB; return false or implement differently if needed
+    return false;
+#endif
 }
 
 std::vector<std::string> utils::split(std::string &s,
