@@ -3,14 +3,21 @@
 ///////////////////// 宏定义 ///////////////////////
 #define NUM_LEDS 42
 #define MAX_FRAME_INDEX 26
-#define TIME_ZONE (+8)   // Beijing Time
+#define TIME_ZONE (+2)   // Amsterdam Time
 #define YEAR_BASE (2000) // date in GPS starts from 2000
 ///////////////////// 引脚定义 ///////////////////////
+#if defined(CONFIG_IDF_TARGET_ESP32)
+#define DATA_PIN 4 
+#else
 #define DATA_PIN 6
+#endif
+
 #if defined(CONFIG_IDF_TARGET_ESP32C3)
 #define CALIBRATE_PIN 9
 #elif defined(CONFIG_IDF_TARGET_ESP32S3)
 #define CALIBRATE_PIN 41
+#elif defined(CONFIG_IDF_TARGET_ESP32)
+#define CALIBRATE_PIN 2   
 #else
 #error "Unsupported target"
 #endif
@@ -36,12 +43,12 @@
 
 // 默认服务器模式
 #ifndef DEFAULT_SERVER_MODE
-#define DEFAULT_SERVER_MODE mcompass::ServerMode::BLE
+#define DEFAULT_SERVER_MODE mcompass::ServerMode::WIFI
 #endif
 
 // 默认型号
 #ifndef DEFAULT_MODEL
-#define DEFAULT_MODEL mcompass::Model::LITE
+#define DEFAULT_MODEL mcompass::Model::GPS
 #endif
 
 ///////////////////// 版本信息 ///////////////////////

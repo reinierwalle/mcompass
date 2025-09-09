@@ -141,11 +141,21 @@ typedef void *nmea_parser_handle_t;
  * @brief Default configuration for NMEA Parser
  *
  */
+#if CONFIG_IDF_TARGET_ESP32
+    #define NMEA_PARSER_RX_PIN 16
+    #define NMEA_UART_CLK_SRC UART_SCLK_APB
+    #define NMEA_UART_NUM UART_NUM_2
+#else
+    #define NMEA_PARSER_RX_PIN 20
+    #define NMEA_UART_CLK_SRC UART_SCLK_XTAL
+    #define NMEA_UART_NUM UART_NUM_1
+#endif
+
 #define NMEA_PARSER_CONFIG_DEFAULT()              \
     {                                             \
         .uart = {                                 \
-            .uart_port = UART_NUM_1,              \
-            .rx_pin = 20,\
+            .uart_port = NMEA_UART_NUM,           \
+            .rx_pin = NMEA_PARSER_RX_PIN,         \
             .baud_rate = 9600,                    \
             .data_bits = UART_DATA_8_BITS,        \
             .parity = UART_PARITY_DISABLE,        \
