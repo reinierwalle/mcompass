@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # --- Build Next.js frontend ---
+      # --- New steps for building Next.js frontend ---
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -26,8 +26,7 @@ jobs:
         working-directory: ./Server
         run: |
           npm install
-          # Skip linting & type-checking in CI
-          npx next build --no-lint --skip-types || true
+          npm run build
 
       - name: Copy Web Build Output
         run: |
@@ -37,7 +36,7 @@ jobs:
       - name: Compress Web Resources
         run: |
           python3 ./Firmware/assets/compass_web_data.py
-      # --- End frontend build ---
+      # --- End new steps ---
 
       - name: Run PlatformIO Action
         uses: karniv00l/platformio-run-action@e6467e68a40b381568bad448faf0a1413c72fc7f
