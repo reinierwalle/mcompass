@@ -15,26 +15,51 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      
+
+      # --- New steps for building Next.js frontend ---
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install and Build Next.js Web App
+        working-directory: ./Server
+        run: |
+          npm install
+          npm run build
+
+      - name: Copy Web Build Output
+        run: |
+          rm -rf ./Firmware/data/*
+          cp -r ./Server/out/* ./Firmware/data/
+
+      - name: Compress Web Resources
+        run: |
+          python3 ./Firmware/assets/compass_web_data.py
+      # --- End new steps ---
+
       - name: Run PlatformIO Action
         uses: karniv00l/platformio-run-action@e6467e68a40b381568bad448faf0a1413c72fc7f
         env:
           DEFAULT_MODEL: ${{ matrix.model }}
           DEFAULT_SERVER_MODE: ${{ matrix.server_mode }}
         with:
-          environments: "esp32dev" # Specify environments, e.g., "env1,env2"
-          targets: ""      # Specify targets, e.g., "upload,monitor"
-          project-dir: "./Firmware/"  # Specify project directory
-          project-conf: "" # Specify a custom platformio.ini
-          jobs: ""         # Number of parallel build jobs
-          silent: ""       # true/false
-          verbose: ""      # true/false
-          disable-auto-clean: "" # true/false
+          environments: "esp32dev"
+          targets: ""
+          project-dir: "./Firmware/"
+          project-conf: ""
+          jobs: ""
+          silent: ""
+          verbose: ""
+          disable-auto-clean: ""
+
       - name: Build Filesystem
         run: pio run -t buildfs -v --project-dir ./Firmware/
+
       - name: Install esptool.py
         run: |
           python3 -m pip install esptool      
+
       - name: Merge binary files
         run: |
           esptool.py --chip esp32 merge_bin \
@@ -47,9 +72,11 @@ jobs:
           0x10000 ./Firmware/.pio/build/esp32dev/firmware.bin \
           0x210000 ./Firmware/.pio/build/esp32dev/littlefs.bin \
           -o mcompass-${{ matrix.model }}-${{ matrix.server_mode }}.bin
+
       - name: Get commit hash
         id: get_commit_hash
         run: echo "COMMIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
       - name: Upload merged firmware
         uses: actions/upload-artifact@v4
         with:
