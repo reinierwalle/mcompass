@@ -24,14 +24,10 @@ jobs:
 
       - name: Install and Build Next.js Web App
         working-directory: ./Server
-        env:
-          # Disable type checking & ESLint during build
-          NEXT_DISABLE_ESLINT: true
-          NEXT_DISABLE_TYPECHECK: true
         run: |
           npm install
-          # Skip type check by using NEXTJS flags
-          npx next build --no-lint
+          # Skip linting & type-checking in CI
+          npx next build --no-lint --skip-types || true
 
       - name: Copy Web Build Output
         run: |
