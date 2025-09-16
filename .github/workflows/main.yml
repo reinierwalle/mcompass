@@ -29,8 +29,7 @@ jobs:
           npm run build
 
       - name: Copy Web Build Output
-        run: |
-          rm -rf ./Firmware/data/*
+        run: |          
           cp -r ./Server/out/* ./Firmware/data/
 
       - name: Compress Web Resources
