@@ -30,6 +30,7 @@ jobs:
 
       - name: Copy Web Build Output
         run: |          
+          rm -rf ./Firmware/data/*
           cp -r ./Server/out/* ./Firmware/data/
 
       - name: Compress Web Resources      
