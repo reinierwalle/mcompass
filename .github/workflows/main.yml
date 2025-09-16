@@ -32,9 +32,10 @@ jobs:
         run: |          
           cp -r ./Server/out/* ./Firmware/data/
 
-      - name: Compress Web Resources
+      - name: Compress Web Resources      
+        working-directory: ./Firmware
         run: |
-          python3 ./Firmware/assets/compass_web_data.py
+          python3 ./assets/compass_web_data.py
       # --- End new steps ---
 
       - name: Run PlatformIO Action
