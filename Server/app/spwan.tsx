@@ -14,7 +14,7 @@ export default function SpawnPanel() {
 
     useEffect(() => {
         setIsSaving(true);
-        // 获取当前的经纬度
+        // Get the current latitude and longitude
         fetch("/spawn")
             .then(response => response.json())
             .then(data => {
@@ -65,9 +65,9 @@ export default function SpawnPanel() {
         }
     }
     return <div className="w-full flex flex-col items-center justify-center flex-wrap gap-4">
-        <p className="px-3 text-start w-full">设置出生点<br />有GPS信号时候会指向这个地点</p>
-        <Input type="number" label="纬度" value={latitude} onChange={onLatitudeChange} />
-        <Input type="number" label="经度" value={longitude} onChange={onLongitudeChange} />
+        <p className="px-3 text-start w-full">Set spawn point<br />When GPS signal is available, it will point to this location</p>
+        <Input type="number" label="Latitude" value={latitude} onChange={onLatitudeChange} />
+        <Input type="number" label="Longitude" value={longitude} onChange={onLongitudeChange} />
         <Popover placement="bottom" isOpen={errorPopover} >
             <PopoverTrigger>
                 <Button color="primary" variant="ghost" className="max-w-xs w-full" onClick={handleSave} isDisabled={!canSave}>
@@ -76,13 +76,13 @@ export default function SpawnPanel() {
                         isIndeterminate
                         aria-label="Loading..."
                         className="max-w-md"
-                    /> : "保存"}
+                    /> : "Save"}
                 </Button>
             </PopoverTrigger>
             <PopoverContent>
                 <div className="px-1 py-2">
                     <div className="text-small font-bold">Value Error</div>
-                    <div className="text-tiny">纬度值范围应该是-90~90,经度值范围应该是-180~180.</div>
+                    <div className="text-tiny">Latitude range should be -90~90, longitude range should be -180~180.</div>
                 </div>
             </PopoverContent>
         </Popover>

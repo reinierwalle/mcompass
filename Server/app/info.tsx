@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 
 export default function InfoPanel() {
     const [deviceInfo, setDeviceInfo] = useState({
-        buildDate: "未知",
-        buildTime: "未知",
-        buildVersion: "未知",
-        gitBranch: "未知",
-        gitCommit: "未知",
+        buildDate: "Unknown",
+        buildTime: "Unknown",
+        buildVersion: "Unknown",
+        gitBranch: "Unknown",
+        gitCommit: "Unknown",
         gpsStatus: "0",
         sensorStatus: "0",
     });
@@ -27,18 +27,16 @@ export default function InfoPanel() {
     }
 
     return <div>
-        
-        
         <ul>
-            <li>固件版本: {deviceInfo.buildVersion}</li>
-            <li>固件分支: {deviceInfo.gitBranch}</li>
-            <li>提交ID: {deviceInfo.gitCommit}</li>
-            <li>构建时间: {deviceInfo.buildTime}</li>
-            <li>构建日期: {deviceInfo.buildDate}</li>
-            <li>GPS状态: {deviceInfo.gpsStatus === "1" ? "可用" : "不可用"}</li>
-            <li>地磁传感器状态: {deviceInfo.sensorStatus === "1" ? "可用" : "不可用"}</li>
+            <li>Firmware Version: {deviceInfo.buildVersion}</li>
+            <li>Firmware Branch: {deviceInfo.gitBranch}</li>
+            <li>Commit ID: {deviceInfo.gitCommit}</li>
+            <li>Build Time: {deviceInfo.buildTime}</li>
+            <li>Build Date: {deviceInfo.buildDate}</li>
+            <li>GPS Status: {deviceInfo.gpsStatus === "1" ? "Available" : "Unavailable"}</li>
+            <li>Geomagnetic Sensor Status: {deviceInfo.sensorStatus === "1" ? "Available" : "Unavailable"}</li>
             <Button color="danger" className="max-w-xs w-full" onClick={reboot}>
-                重启
+                Reboot
             </Button>
         </ul>
     </div>;

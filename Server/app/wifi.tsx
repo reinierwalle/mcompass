@@ -36,22 +36,22 @@ export default function WiFiPanel() {
 
     return (
         <div className="flex flex-col items-center justify-center flex-wrap gap-4">
-            <p className="px-3 text-start w-full">设置WiFi, 重启后生效</p>
+            <p className="px-3 text-start w-full">Set WiFi, takes effect after restart</p>
             <Input
                 type="text"
-                label="Wi-Fi名称"
+                label="Wi-Fi Name"
                 value={ssid}
                 onChange={handleSSIDChange}
             />
             <Input
                 type="text"
-                label="Wi-Fi密码"
+                label="Wi-Fi Password"
                 value={password}
                 onChange={handlePasswordChange}
             />
             
             <Button color="primary" variant="ghost" className="max-w-xs w-full" onClick={saveWiFi}>
-                保存
+                Save
             </Button>
         </div>
     );

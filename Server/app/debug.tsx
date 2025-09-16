@@ -11,7 +11,7 @@ export default function DebugPanel() {
 
     function queryWifiList() {
         console.log("Query WiFi List");
-        // 发起一个请求，获取WiFi列表
+        // Initiate a request to get the WiFi list
         // fetch("/get")
         //     .then(response => response.json())
         //     .then(data => {
@@ -20,7 +20,7 @@ export default function DebugPanel() {
         //     .catch(error => {
         //         console.error("Error fetching WiFi list:", error);
         //     });
-        // 把color post出去
+        // Post the color out
 
     }
 

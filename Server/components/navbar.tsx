@@ -36,10 +36,10 @@ export const Navbar = () => {
 
   const [deviceModel, setDeviceModel] = useState<string>("gps");
 
-  // 当 Switch 状态变化时触发
+  // Triggered when Switch state changes
   const handleSwitchChange = (value: boolean | ((prevState: boolean) => boolean)) => {
     setServerMode(value ? "1" : "0");
-    console.log("Switch 当前状态:", value);
+    console.log("Current Switch state:", value);
   };
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export const Navbar = () => {
       });
   }, [])
 
-  // 保存实验特性配置
+  // Save experimental feature configuration
   function saveAdvancedConfig() {
     const params = new URLSearchParams({
       serverMode: serverMode,
@@ -115,20 +115,20 @@ export const Navbar = () => {
           variant="flat"
           onPress={onOpen}
         >
-          实验特性
+          Experimental Features
         </Button>
         <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
           <ModalContent>
             {(onClose) => (
               <>
-                <ModalHeader className="flex flex-col gap-1">实验特性</ModalHeader>
+                <ModalHeader className="flex flex-col gap-1">Experimental Features</ModalHeader>
                 <ModalBody>
                   <p>
-                    谨慎启用以下选项，重启后生效
+                    Enable the following options with caution. Changes take effect after restart.
                   </p>
                   <Switch
-                    isSelected={serverMode == "1"} // 绑定状态
-                    onValueChange={handleSwitchChange} // 状态变化时的回调
+                    isSelected={serverMode == "1"} // Bind state
+                    onValueChange={handleSwitchChange} // Callback when state changes
                     classNames={{
                       base: cn(
                         "inline-flex flex-row-reverse w-full max-w-md bg-content1 hover:bg-content2 items-center",
@@ -139,7 +139,7 @@ export const Navbar = () => {
                       thumb: cn(
                         "w-6 h-6 border-2 shadow-lg",
                         "group-data-[hover=true]:border-primary",
-                        //selected
+                        // selected
                         "group-data-[selected=true]:ms-6",
                         // pressed
                         "group-data-[pressed=true]:w-7",
@@ -148,26 +148,26 @@ export const Navbar = () => {
                     }}
                   >
                     <div className="flex flex-col gap-1">
-                      <p className="text-medium">使用蓝牙进行配置</p>
+                      <p className="text-medium">Configure via Bluetooth</p>
                       <p className="text-tiny text-default-400">
-                        蓝牙配置需要对应的程序配合
+                        Bluetooth configuration requires the corresponding program
                       </p>
                     </div>
                   </Switch>
-                  <RadioGroup label="修改设备类型" orientation="horizontal" value={deviceModel} onValueChange={setDeviceModel}>
-                    <Radio value="lite">标准版</Radio>
-                    <Radio value="gps">GPS版</Radio>
+                  <RadioGroup label="Change Device Type" orientation="horizontal" value={deviceModel} onValueChange={setDeviceModel}>
+                    <Radio value="lite">Standard Edition</Radio>
+                    <Radio value="gps">GPS Edition</Radio>
                   </RadioGroup>
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>
-                    关闭
+                    Close
                   </Button>
                   <Button color="primary" onPress={() => {
                     saveAdvancedConfig();
                     onClose();
                   }}>
-                    保存
+                    Save
                   </Button>
                 </ModalFooter>
               </>

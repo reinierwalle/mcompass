@@ -16,12 +16,12 @@ export const rainbowColors = [
 ];
 
 export default function ColorsPanel() {
-    // 指针颜色
+    // Pointer color
     const [southColor, setSouthColor] = useState("#FF1414");
     const [spawnColor, setSpawnColor] = useState("#FF1414");
     const [selectedSouthKey, setSelectedSouthKey] = useState<Set<string>>(new Set());
     const [selectedSpawnKey, setSelectedSpawnKey] = useState<Set<string>>(new Set());
-    // 亮度
+    // Brightness
     const [brightness, setBrightness] = useState(56);
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export default function ColorsPanel() {
     //         method: "POST",
     //     });
     // }, [debounceValue]);
-    // 获取初始数据
+    // Get initial data
     useEffect(() => {
         fetch("/pointColors")
             .then(response => response.json())
@@ -77,13 +77,13 @@ export default function ColorsPanel() {
     };
 
     return <div className="w-full flex flex-col items-center justify-center flex-wrap gap-4">
-        <p className="px-3 text-start w-full">自定义亮度和指针颜色,<br /> 亮度实时生效, 颜色重启后生效</p>
+        <p className="px-3 text-start w-full">Customize brightness and pointer colors,<br /> brightness takes effect immediately, colors take effect after restart</p>
         <Slider
             className="max-w-md"
             defaultValue={56}
-            label="亮度"
+            label="Brightness"
             value={brightness}
-            onChange={handleSliderChange} // 监听变化事件
+            onChange={handleSliderChange} // Listen for change events
             maxValue={100}
             minValue={1}
             step={1}
@@ -91,8 +91,8 @@ export default function ColorsPanel() {
         <Select
             className="max-w-xs"
             items={rainbowColors}
-            label="指南针模式指针颜色"
-            placeholder="请选择一种颜色"
+            label="Compass mode pointer color"
+            placeholder="Please select a color"
             selectedKeys={selectedSouthKey}
             onSelectionChange={(keys) => {
                 const key = Array.from(keys)[0];
@@ -112,8 +112,8 @@ export default function ColorsPanel() {
         <Select
             className="max-w-xs"
             items={rainbowColors}
-            label="出生针模式指针颜色"
-            placeholder="请选择一种颜色"
+            label="Spawn mode pointer color"
+            placeholder="Please select a color"
             selectedKeys={selectedSpawnKey}
             onSelectionChange={(keys) => {
                 const key = Array.from(keys)[0];
@@ -131,7 +131,7 @@ export default function ColorsPanel() {
             )}
         </Select>
         <Button color="primary" variant="ghost" className="max-w-xs w-full" onClick={saveColors}>
-            保存
+            Save
         </Button>
     </div>;
 }
